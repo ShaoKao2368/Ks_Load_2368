@@ -1,6 +1,5 @@
 package com.blog.service.impl;
 
-import com.blog.dao.IUserMapper;
 import com.blog.model.entity.User;
 import com.blog.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;

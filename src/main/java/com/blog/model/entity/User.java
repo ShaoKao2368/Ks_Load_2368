@@ -7,7 +7,7 @@ import java.util.Date;
  *
  * @Aurhor钟巧利
  * @Version 1.0
- * 2020.6.30
+ * 2020.6.30IUserMapper
  */
 public class User {
     private Integer id;//主键
