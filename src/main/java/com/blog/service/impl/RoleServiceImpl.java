@@ -31,10 +31,11 @@ public class RoleServiceImpl implements IRoleService {
         if (obj !=null) {
             return (List<Role>) obj;
         }else {
+            //List<Role> list = iRoleMapper.findRoleByLoginUser(user);
             List<Role> list = iRoleMapper.findRoleByLoginUser(user);
             if (list != null && list.size() > 0){
                 //加入缓存
-                redisTemplate.opsForCluster().set(user.getLoginName() + "_roles",list);
+                redisTemplate.opsForValue().set(user.getLoginName() + "_roles",list);
 
             }
             return list;
