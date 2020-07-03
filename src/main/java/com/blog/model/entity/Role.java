@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 角色实体类
- * @Author hedingjun
+ * @Author LiWenyu
  * @Version1.0
  * 2020-7-3
  * lwy
