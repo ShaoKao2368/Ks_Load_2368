@@ -40,7 +40,7 @@ public interface IUserMapper {
             @Result(column = "valid",property = "valid"),
             @Result(column = "img",property = "img")
     })
-    @Select("select *from t_user where login_name=#{lohinName}")
+    @Select("select *from t_user where login_name=#{loginName}")
     public User findByLoginName(String loginName);//按照登录名查询用户，用于登录验证
     //
     public List<User> findAllUser();//查找所有用户
