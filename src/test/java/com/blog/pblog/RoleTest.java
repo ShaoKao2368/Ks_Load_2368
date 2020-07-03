@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
 import java.util.List;
 
 /*
@@ -22,7 +23,8 @@ public class RoleTest {
     void testFindRole(){
         User user=new User();
         user.setId(1);
-        List<Role> list=iRoleService.findRoleByLoginUser(user);
+        //原代码之所以报错是因为返回的类型不对导致的。
+        List<Role> list = iRoleService.findRoleByLoginUser(user);
         for (Role r:list){
             System.out.println(r.toString());
         }

@@ -6,6 +6,7 @@ import com.blog.service.IRoleService;
 import com.blog.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * 2020.7.3
  */
 @Service
-public class UserDetailsServiceImpl {
+public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private IUserService iUserService;//注入用户服务接口
     @Autowired
@@ -31,7 +32,10 @@ public class UserDetailsServiceImpl {
             for (Role r:list){
                 roles.append(r.getRole());
             }
+
+
             
         }
+        return null;
     }
 }

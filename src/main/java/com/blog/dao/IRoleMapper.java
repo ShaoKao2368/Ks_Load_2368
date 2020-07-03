@@ -1,11 +1,11 @@
 package com.blog.dao;
 
+import com.blog.model.entity.Role;
 import com.blog.model.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
-import javax.management.relation.Role;
 import java.util.List;
 
 /*

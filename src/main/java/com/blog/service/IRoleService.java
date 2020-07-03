@@ -1,8 +1,8 @@
 package com.blog.service;
 
+import com.blog.model.entity.Role;
 import com.blog.model.entity.User;
 
-import javax.management.relation.Role;
 import java.util.List;
 
 /*

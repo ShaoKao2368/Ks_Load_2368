@@ -1,6 +1,7 @@
 package com.blog.service.impl;
 
 import com.blog.dao.IRoleMapper;
+import com.blog.model.entity.Role;
 import com.blog.model.entity.User;
 import com.blog.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.management.relation.Role;
+
 import java.util.List;
 
 /**
