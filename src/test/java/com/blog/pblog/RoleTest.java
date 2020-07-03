@@ -1,12 +1,13 @@
 package com.blog.pblog;
 
+import com.blog.model.entity.Role;
 import com.blog.model.entity.User;
 import com.blog.service.IRoleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.management.relation.Role;
+
 import java.util.List;
 
 /*
@@ -23,7 +24,7 @@ public class RoleTest {
         User user=new User();
         user.setId(1);
         //原代码之所以报错是因为返回的类型不对导致的。
-        List<javax.management.relation.Role> list = iRoleService.findRoleByLoginUser(user);
+        List<Role> list = iRoleService.findRoleByLoginUser(user);
         for (Role r:list){
             System.out.println(r.toString());
         }
