@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * User服务层接口
+ * zzk
  */
 public interface IUserService {
     public User findByLoginName(String loginName);
