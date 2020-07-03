@@ -18,4 +18,82 @@ public class User {
     private Date registerTime;//注册时间
     private boolean valid;//有效性，0无效，1有效
     private String img;//头像
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", loginName='" + loginName + '\'' +
+                ", loginPass='" + loginPass + '\'' +
+                ", email='" + email + '\'' +
+                ", registerTime=" + registerTime +
+                ", valid=" + valid +
+                ", img='" + img + '\'' +
+                '}';
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getLoginPass() {
+        return loginPass;
+    }
+
+    public void setLoginPass(String loginPass) {
+        this.loginPass = loginPass;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+}
