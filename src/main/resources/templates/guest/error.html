@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <link th:href="@{../../static/bootstrap4/css/bootstrap.css}" th:rel="stylesheet">
+        <script th:src="@{../../static/js/jquery-3.4.1.min.js}"></script>
+        <script th:src="@{bootstrap4/js/bootstrap.js}"></script>
+        <script th:src="@{bootstrap4/js/bootstrap.bundle.js}"></script>
+        <title>错误页面</title>
+    </head>
+    <body>
+      出错了<div th:text="${error}"></div>
+    </body>
+</html>
