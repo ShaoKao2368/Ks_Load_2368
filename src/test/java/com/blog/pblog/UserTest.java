@@ -23,11 +23,12 @@ public class UserTest {
     void testAddUser(){
         User user = new User();
         user.setEmail("2368407289@qq.com");
-        user.setLoginName("admin3");
+        user.setLoginName("admin4");
         user.setLoginPass("2368407289");
         user.setName("烧烤");
         user.setRegisterTime(new Date());
         user.setValid(true);
+        user.setImg("qwe");
         String msg = iUserService.addUser(user);
         System.out.println(msg);
     }
@@ -41,7 +42,7 @@ public class UserTest {
         }
     }
 
-    //测试查找所有用户
+    //测试查找所有用户  BUG解决，在全局配置文件
     @Test
     void testFindAllUser(){
         List<User> list = iUserService.findAllUser();

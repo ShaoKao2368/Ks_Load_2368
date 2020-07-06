@@ -1,5 +1,7 @@
 package com.blog.model.entity;
 
+import org.springframework.context.annotation.Primary;
+
 import java.util.Date;
 
 /**
@@ -10,6 +12,7 @@ import java.util.Date;
  * 2020.6.30IUserMapper
  */
 public class User {
+
     private Integer id;//主键
     private String name;//用户名
     private String loginName;//登录名

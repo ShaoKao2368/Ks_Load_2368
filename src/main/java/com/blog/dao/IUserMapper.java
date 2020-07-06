@@ -1,10 +1,7 @@
 package com.blog.dao;
 
 import com.blog.model.entity.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -34,14 +31,15 @@ public interface IUserMapper {
     @Results(id="userMap",value = {
             @Result(id = true,column = "id",property = "id"),
             @Result(column = "name",property = "name"),
-            @Result(column = "login_name",property = "login_name"),
-            @Result(column = "login_pass",property = "login_pass"),
+            @Result(column = "loginName",property = "loginName"),
+            @Result(column = "loginPass",property = "loginPass"),
             @Result(column = "email",property = "email"),
             @Result(column = "valid",property = "valid"),
             @Result(column = "img",property = "img")
     })
-    @Select("select *from t_user where login_name=#{lohinName}")
+    @Select("select * from t_user where login_name=#{loginName}")
     public User findByLoginName(String loginName);//按照登录名查询用户，用于登录验证
+    //public User findByLoginName(@Param("loginName")String loginName);
     //
     public List<User> findAllUser();//查找所有用户
     public int delUser(User user);//删除指定用户，删除成功返回记录数，删除失败返回0

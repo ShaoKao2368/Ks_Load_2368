@@ -8,22 +8,22 @@
     <select id="findUser" resultType="User">
         select * from t_user
         where 1=1
-        <if test="name!=null and name!=''">
+        <if test="name!=null and name!='' ">
             and name=#{name}
         </if>
-        <if test="loginName!=null and loginName!=''">
-            and login_name=#{login_name}
+        <if test="loginName!=null and loginName!='' ">
+            and loginName=#{loginName}
         </if>
-        <if test="loginPass!=null and loginPass!=''">
-            and login_pass=#{loginPass}
+        <if test="loginPass!=null and loginPass!='' ">
+            and loginPass=#{loginPass}
         </if>
-        <if test="email!=null and email =''">
+        <if test="email!=null and email ='' ">
             and email=#{email}
         </if>
         <if test="valid!=null">
             and valid=#{valid}
         </if>
-        <if test="img!=null and img!=''" >
+        <if test="img!=null and img!='' " >
             and img=#{img}
         </if>
 
@@ -35,7 +35,7 @@
         update t_user set name={name},login_name=#{loginName},login_pass=#{loginPass},email=#{email},valid=#{valid},img=#{img}
     </update>
     <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        inser into t_user(name,login-name,login_pass,email,valid,img,register_time) values (#{name0},#{loginName},#{loginPass},#{email},#{valid},#{img},#{registerTime})
+        insert into t_user(name,login_name,login_pass,email,valid,img,register_time) values (#{name},#{loginName},#{loginPass},#{email},#{valid},#{img},#{registerTime})
     </insert>
 </mapper>
 
