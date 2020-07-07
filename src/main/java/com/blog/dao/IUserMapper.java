@@ -34,13 +34,13 @@ public interface IUserMapper {
     @Results(id="userMap",value = {
             @Result(id = true,column = "id",property = "id"),
             @Result(column = "name",property = "name"),
-            @Result(column = "login_name",property = "login_name"),
-            @Result(column = "login_pass",property = "login_pass"),
+            @Result(column = "login_name",property = "loginName"),
+            @Result(column = "login_pass",property = "loginPass"),
             @Result(column = "email",property = "email"),
             @Result(column = "valid",property = "valid"),
             @Result(column = "img",property = "img")
     })
-    @Select("select *from t_user where login_name=#{lohinName}")
+    @Select("select *from t_user where login_name=#{loginName}")
     public User findByLoginName(String loginName);//按照登录名查询用户，用于登录验证
     //
     public List<User> findAllUser();//查找所有用户

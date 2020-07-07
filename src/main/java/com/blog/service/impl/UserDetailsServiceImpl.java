@@ -5,12 +5,17 @@ import com.blog.model.entity.User;
 import com.blog.service.IRoleService;
 import com.blog.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
+import java.util.stream.Collectors;
 
 /**
  * UserDetailsService接口实现
@@ -33,9 +38,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 roles.append(r.getRole());
             }
 
-
+            List<SimpleGrantedAuthority> simpleGrantedAuthorities = Arrays.asList(roles).stream()
+                    .map(r -> new SimpleGrantedAuthority(r.toString())).collect(Collectors.toList());
+            return new org.springframework.security.core.userdetails.User(user.getLoginName(),user.getLoginPass(),simpleGrantedAuthorities);
             
         }
-        return null;
+        throw  new UsernameNotFoundException("用户名不存在");
     }
 }
