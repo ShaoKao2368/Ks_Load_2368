@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+	<head th:include="guest/front-header :: front-header"></head>
+	<body class="relative">
+	  <!-- Preloader -->
+	  <div class="loader-mask">
+		<div class="loader">
+		  <div></div>
+		  <div></div>
+		</div>
+	  </div>
+	  <div class="main-wrapper oh">
+		  <!--top内容-->
+		  <div th:include="guest/front-top :: front-top"></div>
+		  <!--内容区域-->
+		<div class="content-wrapper oh">
+		  <section class="section-wrap about-me pt-mdm-60">
+			<div class="container relative">
+			  <div class="text-center">
+				<h1 class="heading underline-title uppercase">Hello</h1>
+			  </div>
+			  <div class="row row-35">          	
+				<div class="col-sm-6">
+				  <img th:src="@{static/img/about.jpg}" class="img-fw mb-30" alt="">
+				</div>
+				<div class="col-sm-6">
+				  <p>几大段落做相关介绍</p>
+				  <p>几大段落做相关介绍</p>
+				  <p>几大段落做相关介绍</p>
+				  <img th:src="@{/static/img/signature.png}" class="mt-30" alt="">
+				</div>		  
+			  </div>
+			</div> 
+		  </section>
+			<!--页脚-->
+			<div th:include="guest/front-footer :: front-footer"></div>
+		</div>
+	  </div>
+	</body>
+</html>

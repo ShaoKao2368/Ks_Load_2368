@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:include="admin/header :: header"></head>
 <body>
-
+<div id="wrap">
+    <!--导航栏-->
+    <div th:include="admin/topnav :: topnav"></div>
+    <div class="container-fluid">
+        <!-- 左侧菜单 -->
+        <div th:include="admin/leftmenu :: leftmenu"></div>
+        <!-- 中间主窗口-->
+        <div class="main_container mt-20" id="dashboard_page">
+            <div class="row-fluid">
+                <div class="overview_boxes">
+                    <div class="box_row clearfix">
+                       查找文章
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:include="admin/middle :: middle" id="backmiddle"></div>
+    </div>
+</div>
 </body>
 </html>

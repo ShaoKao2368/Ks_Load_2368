@@ -1,11 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>前台首页</title>
-    </head>
-    <body>
-        前台首页,需要进行设计
-        <a href="/admin/home">后台</a>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+>
+<head th:include="guest/front-header :: front-header"></head>
+<body class="relative">
+    <!-- Preloader -->
+    <div class="loader-mask">
+        <div class="loader">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="main-wrapper oh">
+       <!--top内容-->
+        <div th:include="guest/front-top :: front-top"></div>
+        <div class="content-wrapper oh">
+            <!-- 主要内容区域 -->
+            <section class="content blog-standard">
+                <div class="container relative">
+                    <div class="row" th:with="lists=8">
+                        <!-- post content -->
+                        <div class="col-md-9 post-content mb-50">
+                            <!-- large post -->
+                            <article class="entry-item large-post" >
+                                <div class="entry-header">
+                                    <a href="#" class="entry-category">博文分类1</a>
+                                    <h2 class="entry-title">
+                                        <a th:href="@{/guest/detail(title_id=1111)}">博文标题</a>
+                                    </h2>
+                                </div>
+                                <div class="entry-img">
+                                    <a th:href="@{/guest/detail(title_id=1111)}">
+                                        <img th:src="@{/static/img/featured_post.jpg}" alt="">
+                                    </a>
+                                </div>
+                                <div class="entry-wrap">
+                                    <div class="entry">
+                                        <div class="entry-content">
+                                            <p>博文内容....</p>
+                                            <div class="text-center">
+                                                <a th:href="@{/guest/detail(title_id=1111)}" class="read-more underline-link">更多</a>
+                                            </div>
+                                        </div>
+                                        <div class="entry-meta-wrap clearfix">
+                                            <ul class="entry-meta">
+                                                <li class="entry-date">
+                                                    2020年6月30日
+                                                </li>
+                                                <li class="entry-comments">
+                                                    评论数(2)
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <!-- grid posts -->
+                            <div class="row items-grid">
+                                <div class="col-sm-6" th:each="i: ${#numbers.sequence(1,10)}">
+                                    <article class="entry-item">
+                                        <div class="entry-img">
+                                            <a th:href="@{/guest/detail(title_id=1111)}">
+                                                <img th:src="@{/static/img/post_1.jpg}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="entry-header">
+                                            <a href="#" class="entry-category">博文分类</a>
+                                            <h2 class="entry-title">
+                                                <a th:href="@{/guest/detail(title_id=1111)}">博文标题</a>
+                                            </h2>
+                                        </div>
+                                        <div class="entry-wrap">
+                                            <div class="entry">
+                                                <div class="entry-content">
+                                                    <p>博文内容</p>
+                                                </div>
+                                                <div class="entry-meta-wrap clearfix">
+                                                    <ul class="entry-meta">
+                                                        <li class="entry-date">
+                                                           2020年6月30日
+                                                        </li>
+                                                        <li class="entry-comments">
+                                                            评论数(2)
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                            <div class="row mt-20">
+                                <div class="col-md-12 text-center">
+                                    <a th:href="@{/guest/findmore}" class="btn btn-md btn-stroke" id="load-more">查看更多</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 侧边栏 -->
+                        <div th:include="guest/front-sidebar :: front-sidebar"></div>
+                    </div>
+                </div>
+            </section>
+            <!--页脚-->
+            <div th:include="guest/front-footer :: front-footer"></div>
+        </div>
+    </div>
     </body>
 </html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <meta charset="UTF-8">
+        <title>前台页面侧边栏</title>
+    </head>
+    <body>
+        <div th:fragment="front-sidebar">
+            <aside class="col-md-3 sidebar">
+                <div class="widget about-blog text-center">
+                    <div class="heading-lines">
+                        <h3 class="widget-title heading">作者介绍</h3>
+                    </div>
+                    <img th:src="@{/static/img/about_me.jpg}" alt="">
+                    <p class="mb-20 mt-30">博主个人介绍</p>
+                    <img th:src="@{/static/img/signature.png}" alt="签名">
+                </div>
+                <!-- Categories -->
+                <div class="widget categories">
+                    <div class="heading-lines">
+                        <h3 class="widget-title heading">文章分类</h3>
+                    </div>
+                    <ul class="list-dividers">
+                        <li>
+                            分类1<span>(8)</span>
+                        </li>
+                        <li>
+                            分类2<span>(14)</span>
+                        </li>
+                        <li>
+                            分类3<span>(5)</span>
+                        </li>
+                        <li>
+                            分类4<span>(3)</span>
+                        </li>
+                        <li>
+                            分类5<span>(7)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Ad banner -->
+                <div class="widget custom-ad-banner">
+                    <img th:src="@{/static/img/banner.jpg}" alt="分栏图片">
+                </div>
+                <!-- Recent Posts -->
+                <div class="widget recent-posts">
+                    <div class="heading-lines">
+                        <h3 class="heading">评论Top10</h3>
+                    </div>
+                    <div class="entry-list w-thumbs">
+                        <ul class="posts-list list-dividers" th:each="i: ${#numbers.sequence(1,10)}">
+                            <li class="entry-li">
+                                <article class="post-small clearfix">
+                                    <div class="entry-img">
+                                        <a th:href="@{/guest/detail(title_id=1111)}">
+                                            <img th:src="@{/static/img/recent_1.jpg}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="entry">
+                                        <h3 class="entry-title"><a th:href="@{/guest/detail(title_id=1111)}">博文标题1</a></h3>
+                                        <ul class="entry-meta list-inline">
+                                            <li class="entry-date">
+                                                2020年6月30日 12:55:50
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </article>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Recent Posts -->
+                <div class="widget recent-posts">
+                    <div class="heading-lines">
+                        <h3 class="heading">阅读Top10</h3>
+                    </div>
+                    <div class="entry-list w-thumbs">
+                        <ul class="posts-list list-dividers" th:each="i: ${#numbers.sequence(1,10)}">
+                            <li class="entry-li">
+                                <article class="post-small clearfix">
+                                    <div class="entry-img">
+                                        <a th:href="@{/guest/detail(title_id=1111)}">
+                                            <img th:src="@{/static/img/recent_1.jpg}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="entry">
+                                        <h3 class="entry-title"><a th:href="@{/guest/detail(title_id=1111)}">博文标题1</a></h3>
+                                        <ul class="entry-meta list-inline">
+                                            <li class="entry-date">
+                                                2020年6月30日 12:55:50
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </article>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </body>
+</html>

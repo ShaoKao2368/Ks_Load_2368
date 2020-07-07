@@ -32,7 +32,7 @@
         delete from t_user where id=#{id}
     </delete>
     <update id="modifyUser" parameterType="User">
-        update t_user set name={name},login_name=#{loginName},login_pass=#{loginPass},email=#{email},valid=#{valid},img=#{img}
+        update t_user set name=#{name},login_name=#{loginName},login_pass=#{loginPass},email=#{email},valid=#{valid},img=#{img}
     </update>
     <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         inser into t_user(name,login-name,login_pass,email,valid,img,register_time) values (#{name0},#{loginName},#{loginPass},#{email},#{valid},#{img},#{registerTime})

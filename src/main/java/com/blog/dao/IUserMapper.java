@@ -34,8 +34,8 @@ public interface IUserMapper {
     @Results(id="userMap",value = {
             @Result(id = true,column = "id",property = "id"),
             @Result(column = "name",property = "name"),
-            @Result(column = "login_name",property = "login_name"),
-            @Result(column = "login_pass",property = "login_pass"),
+            @Result(column = "login_name",property = "loginName"),
+            @Result(column = "login_pass",property = "loginPass"),
             @Result(column = "email",property = "email"),
             @Result(column = "valid",property = "valid"),
             @Result(column = "img",property = "img")

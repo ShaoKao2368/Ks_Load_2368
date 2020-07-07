@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>左侧菜单定义</title>
+    </head>
+    <body>
+        <div th:fragment="leftmenu">
+            <div class="sidebar-nav nav-collapse collapse">
+                <div class="user_side clearfix">
+                    <img th:src="@{/static/assets/img/odinn.jpg}" alt="Odinn god of Thunder" />
+                    <h5 th:if="${session.user!=null}" >
+                        <span th:text="${session.user.name}" style="color:white;font-max-size: large;"></span>
+                    </h5>
+                </div>
+                <div class="accordion" id="accordion2">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle active b_F79999" th:href="@{/}"><i class="icon-dashboard"></i> <span>首页</span></a>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse1"><i class="icon-magic"></i> <span>文章管理</span></a>
+                        </div>
+                        <div id="collapse1" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <a class="accordion-toggle" th:href="@{/user/toPublishArticle}"><i class="icon-star"></i>发表博文</a>
+                                <a class="accordion-toggle" th:href="@{/admin/toAuditArticle}"><i class="icon-list-alt"></i> 审核博文</a>
+                                <a class="accordion-toggle" th:href="@{/user/toModifyArticle}"><i class="icon-table"></i> 修改博文</a>
+                                <a class="accordion-toggle" th:href="@{/user/toDelArticle}"><i class="icon-circle"></i> 删除博文</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle b_9FDDF6 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse2"><i class="icon-reorder"></i> <span>评论管理</span></a>
+                        </div>
+                        <div id="collapse2" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <a class="accordion-toggle" th:href="@{/admin/toAuditComment}"><i class="icon-rss"></i> 审核评论</a>
+                                <a class="accordion-toggle" th:href="@{/user/toDelComment}"><i class="icon-rss"></i>  删除评论</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle b_9FDDF6 collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse3"><i class="icon-reorder"></i> <span>统计查看</span></a>
+                        </div>
+                        <div id="collapse3" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <a class="accordion-toggle" th:href="@{/admin/readCounts}"><i class="icon-rss"></i> 阅读量查看</a>
+                                <a class="accordion-toggle" th:href="@{/admin/replyCounts}"><i class="icon-calendar"></i> 回帖量查看</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle b_9FDDF6 collapsed" data-toggle="collapse" data-parent="#accordion4" href="#collapse4"><i class="icon-reorder"></i> <span>用户管理</span></a>
+                        </div>
+                        <div id="collapse4" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <a class="accordion-toggle" th:href="@{/admin/resetPass}"><i class="icon-rss"></i> 重置密码</a>
+                                <a class="accordion-toggle" th:href="@{/user/modifyPass}"><i class="icon-rss"></i> 修改密码</a>
+                                <a class="accordion-toggle" th:href="@{/admin/userManage}"><i class="icon-calendar"></i> 禁用/启用</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>

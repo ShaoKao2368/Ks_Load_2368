@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>顶部菜单栏</title>
+    </head>
+    <body>
+        <div th:fragment="topnav">
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <div class="logo">
+                            <img th:src="@{/static/assets/img/logo.png}" alt="Realm Admin Template">
+                        </div>
+                        <a class="btn btn-navbar visible-phone" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="btn btn-navbar slide_menu_left visible-tablet">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+
+                        <div class="top-menu visible-desktop">
+                            <ul class="pull-left">
+                                <li><a id="messages" data-notification="2" href="#"><i class="icon-envelope"></i> 消息</a></li>
+                                <li><a id="notifications" data-notification="3" href="#"><i class="icon-globe"></i> 通知</a></li>
+                            </ul>
+                            <ul class="pull-right">
+                                <li>
+                                    <form th:action="@{/logout}" method="post" id="frm"></form>
+                                    <a href="javascript:$('#frm').submit();"><i class="icon-off"></i> 退出</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="top-menu visible-phone visible-tablet">
+                            <ul class="pull-right">
+                                <li><a title="link to View all Messages page, no popover in phone view or tablet" href="#"><i class="icon-envelope"></i></a></li>
+                                <li><a title="link to View all Notifications page, no popover in phone view or tablet" href="#"><i class="icon-globe"></i></a></li>
+                                <li><a th:href="@{/toLogin}"><i class="icon-off"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>

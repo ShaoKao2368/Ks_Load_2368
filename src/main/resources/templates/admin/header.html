@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="header">
+        <title>部部内容</title>
+        <meta charset="utf-8">
+        <title>Realm - Dashboard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/static/assets/css/bootstrap.css}" rel="stylesheet">
+        <link th:href="@{/static/assets/css/theme.css}" rel="stylesheet">
+        <link th:href="@{/static/assets/css/font-awesome.min.css}" rel="stylesheet">
+        <link th:href="@{/static/assets/css/alertify.css}" rel="stylesheet">
+        <link rel="Favicon Icon" href="favicon.ico">
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <script th:src="@{/static/assets/js/jquery.min.js}"></script>
+        <script th:src="@{/static/assets/js/jquery-ui.min.js}"></script>
+        <script th:src='@{/static/assets/js/raphael-min.js}'></script>
+        <script th:src="@{/static/assets/js/bootstrap.js}"></script>
+        <script th:src='@{/static/assets/js/sparkline.js}'></script>
+        <script th:src='@{/static/assets/js/morris.min.js}'></script>
+        <script th:src='@{/static/assets/js/jquery.dataTables.min.js}'></script>
+        <script th:src='@{/static/assets/js/jquery.masonry.min.js}'></script>
+        <script th:src='@{/static/assets/js/jquery.imagesloaded.min.js}'></script>
+        <script th:src='@{/static/assets/js/jquery.facybox.js}'></script>
+        <script th:src='@{/static/assets/js/jquery.alertify.min.js}'></script>
+        <script th:src='@{/static/assets/js/jquery.knob.js}'></script>
+        <script th:src='@{/static/assets/js/fullcalendar.min.js}'></script>
+        <script th:src='@{/static/assets/js/jquery.gritter.min.js}'></script>
+        <script th:src='@{/static/assets/js/realm.js}'></script>
+        <script th:src='@{/static/assets/js/jquery.slimscroll.min.js}'></script>
+        <script th:src='@{/static/ckeditor/ckeditor.js}'></script>
+        <script>
+            $.gritter.add({
+                title: '欢迎使用博客系统',
+                text: '欢迎使用的具体内容<br\>欢迎使用的具体内容<br\>欢迎使用的具体内容<br\>欢迎使用的具体内容<br\>',
+                // (string | optional) the image to display on the left
+                image: '/static/assets/img/avatars/09.jpg',
+                sticky: true,
+                // (int | optional) the time you want it to be alive for before fading out
+                time: '20',
+                // (string | optional) the class name you want to apply to that specific message
+                class_name: 'my-sticky-class'
+            });
+        </script>
+    </head>
+    <body></body>
+</html>

@@ -1,33 +1,121 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-    <head>
-        <meta charset="UTF-8">
-        <link th:href="@{/static/bootstrap4/css/bootstrap.css}" rel="stylesheet">
-        <script th:src="@{/static/js/jquery-3.4.1.min.js}"></script>
-        <script th:src="@{/static/bootstrap4/js/bootstrap.bundle.js}"></script>
-        <script th:src="@{/static/bootstrap4/js/bootstrap.js}"></script>
-        <title>管理员后台</title>
-    </head>
-    <body>
-        这是后台页面需要进行设计
-        <div sec:authorize="isAuthenticated()">
-            有权限看的
-        </div>
-        <div sec:authorize="isAnonymous()">
-            匿名用户
-        </div>
-        <div sec:authentication="principal.authorities">
+  <head th:include="admin/header :: header"></head>
+  <body>
+    <div id="wrap">
+	  <!--导航栏-->
+      <div th:include="admin/topnav :: topnav"></div>
+      <div class="container-fluid">
+        <!-- 左侧菜单 -->
+        <div th:include="admin/leftmenu :: leftmenu"></div>
 
-        </div>
-        <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-            admin用户
-        </div>
-        <div sec:authorize="hasAuthority('ROLE_USER')">
-            user用户
-        </div>
+        <!-- 中间主窗口-->
+        <div class="main_container mt-20" id="dashboard_page">
+          <div class="row-fluid">
+            <div class="overview_boxes">
+              <div class="box_row clearfix">
+                <div class="widget-tasks-statistics">
+                  <div class="userstats clearfix" style="margin-top: 25px;">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#example_modal2">
+                      <div class="white">
+                        <i style="color:#E28271" class="icon-eye-open"></i>
+                        <p style="color:#E28271">+85%</p>
+                      </div>
+                      <div class="widget">
+                        <input class="knob" data-width="120" data-height="120" data-displayInput=false data-readOnly=true data-thickness=".15" value="85">
+                      </div>
+                      <p><strong>+530</strong>本月阅读/上月阅读</p>
+                    </a>
+                  </div>
+                </div>
+                <div class="widget-tasks-statistics">
+                  <div class="userstats clearfix" style="margin-top: 25px;">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#example_modal2">
+                      <div class="white">
+                        <i style="color:#98E5EA" class="icon-user"></i>
+                        <p style="color:#98E5EA">+13%</p>
+                      </div>
+                      <div class="widget">
+                        <input class="knob" data-width="120" data-height="120" data-displayInput=false data-readOnly=true data-thickness=".15" value="13">
+                      </div>
+                      <p><strong>+57</strong>本月注册用户/上月注册用户</p>
 
-        <div th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}"></div>
-        <div th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.authorities}"></div>
-    </body>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="box_row clearfix">
+                <div class="widget-tasks-statistics">
+                  <div class="userstats clearfix" style="margin-top: 25px;">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#example_modal2">
+                      <div class="white">
+                        <i style="color:#98AEEA" class="icon-thumbs-up"></i>
+                        <p style="color:#98AEEA">+55%</p>
+                      </div>
+                      <div class="widget">
+                        <input class="knob" data-width="120" data-height="120" data-displayInput=false data-readOnly=true data-thickness=".15" value="55">
+                      </div>
+                      <p><strong>+14,230</strong>本月回帖/上月回帖</p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 图表  -->
+            <div class="row-fluid">
+              <div class="widget span4">
+                <div class="widget-header">
+                  <i class="icon-lightbulb"></i>
+                  <h5>最新评论</h5>
+                  <div class="widget-buttons">
+                    <a href="javascript:void(0)" class="collapse" data-collapsed="false"><i data-title="Collapse" class="icon-chevron-up"></i></a>
+                  </div>
+                </div>
+                <div class="widget-body" style="height:310px;overflow:hidden">
+                  <div class="widget-tickets clearfix slimscroll">
+                    <ul>
+                      <li class="priority-high">
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#example_modal">
+                          <img th:src="@{/static/assets/img/avatars/02.jpg}" class="avatar"/>
+                          <h5>博文标题</h5>
+                          <p>评论内容摘要...</p>
+                          <div class="date">发表时间 <a href="javascript:void(0)">查看</a>	</div>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="widget span8">
+                <div class="widget-header">
+                  <i class="icon-comment-alt"></i>
+                  <h5>最新博文</h5>
+                  <div class="widget-buttons">
+                    <a href="javascript:void(0)" class="collapse" data-collapsed="false"><i data-title="Collapse" class="icon-chevron-up"></i></a>
+                  </div>
+                </div>
+                <div class="widget-body" style="height:310px;overflow:hidden">
+                  <div class="widget-comments clearfix slimscroll">
+                    <ul>
+                      <li>
+                        <img th:src="@{/static/assets/img/avatars/04.jpg}" class="avatar"/>
+                        <div class="comment-bubble">
+                          <a href="javascript:void(0)">
+                            <h4>博文标题</h4>
+                            <p>博文内容摘要....</p>
+                            <div class="date">发表时间</div>
+                          </a>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

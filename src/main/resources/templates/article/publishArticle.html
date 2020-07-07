@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head th:include="admin/header :: header"></head>
+    <script>
+        //富文本编辑器
+        $().ready(function(){
+            CKEDITOR.replace( 'content');
+        });
+    </script>
+    <style>
+        .star{color:red;}
+    </style>
+    <body>
+    <div id="wrap">
+        <!--导航栏-->
+        <div th:include="admin/topnav :: topnav"></div>
+        <div class="container-fluid">
+            <!-- 左侧菜单 -->
+            <div th:include="admin/leftmenu :: leftmenu"></div>
+            <!-- 中间主窗口-->
+            <div class="main_container mt-20" id="dashboard_page">
+                <div th:text="${publishMsg}" class="text-danger"></div>
+               <form th:action="@{/user/publisArticle}" method="post" role="form" enctype="multipart/form-data">
+                   <div class="control-group">
+                       <h5 class="form-control">博文标题</h5>
+                       <div class="input-group input-group-lg">
+                           <input class="form-control" th:type="text" name="title" id="title" placeholder="请输入博文标题">
+                           <span class="input-group-addon"><i class="star">*</i></span>
+                       </div>
+                    </div>
+                   <div class="control-group">
+                       <h5 class="form-control">博文类型</h5>
+                       <select name="typeid" id="typeid" class="form-control">
+                           <option value="">请选择一种类型</option>
+                           <div th:each="type:${typeList}">
+                               <option th:value="${type.id}" th:text="${type.type}"></option>
+                           </div>
+                       </select>
+                       <span class="input-group-addon"><i class="star">*</i></span>
+                   </div>
+                   <div class="control-group">
+                       <h5 class="form-control">是否允许评论</h5>
+                       <div class="input-group input-group-lg">
+                            允许<input th:type="radio" name="enableComment" value="1" checked="checked">
+                            禁止<input th:type="radio" name="enableComment" value="0">
+                           <span class="input-group-addon"><i class="star">*</i></span>
+                       </div>
+                   </div>
+                   <div class="control-group">
+                       <h5 class="form-control">博文图片</h5>
+                       <div class="input-group input-group-lg">
+                           <input th:type="file" name="imgFile" id="imgFile">
+                           <span class="input-group-addon"><i class="star">*</i></span>
+                       </div>
+                   </div>
+                   <div class="form-group-lg">
+                       <h5 class="form-control">博文内容(<i class="star">*</i>)</h5>
+                       <textarea name="content" id="content"/></textarea>
+                   </div>
+                   <div class="form-group-lg">
+                       <input class="btn btn-primary" th:type="submit"  th:value="发布">
+                       <input class="btn btn-primary" th:type="reset"  th:value="重置">
+                   </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
