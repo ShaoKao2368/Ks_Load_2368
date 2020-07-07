@@ -26,9 +26,9 @@ public class UserController {
             System.out.println(grantedAuthority.getAuthority());
         }
         if (list!=null && list.contains("ROLE_ADMIN")){
-            return "admin/home";
+            return "/admin/home";
         }else{
-            return "guest/index";
+            return "/guest/index";
         }
     }
 }
