@@ -1,55 +1,56 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>首页</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta charset="UTF-8">
-		<link th:href="@{/static/bootstrap4/css/bootstrap.css}" rel="stylesheet" type="text/css">
-		<link th:href="@{/static/css/fontawesome-all.css}" rel="stylesheet" type="text/css">
-		<link th:href="@{/static/css/style.css}" rel="stylesheet" type="text/css">
-		<script th:src="@{/static/js/jquery-3.4.1.min.js}" type="text/javascript"></script>
-		<script th:src="@{/static/bootstrap4/js/bootstrap.bundle.js}" type="text/javascript"></script>
-		<script th:src="@{/static/bootstrap4/js/bootstrap.js}" type="text/javascript"></script>
-		<script type="text/javascript">
-			addEventListener("load", function () {
-				setTimeout(hideURLbar, 0);
-			}, false);
+<head>
+	<title>首页</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<link th:href="@{/static/bootstrap4/css/bootstrap.css}" rel="stylesheet" type="text/html">
+	<link th:href="@{/static/css/fontawesome-all.css}" rel="stylesheet" type="text/html">
+	<link th:href="@{/static/css/style.css}" rel="stylesheet" type="text/html">
+	<script th:src="@{/static/js/jquery-3.4.1.min.js}" type="text/javascript"></script>
+	<script th:src="@{/static/bootstrap4/js/bootstrap.bundle.js}" type="text/javascript"></script>
+	<script th:src="@{/static/bootstrap4/js/bootstrap.js}" type="text/javascript"></script>
+	<script type="text/javascript">
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
 
-			function hideURLbar() {
-				window.scrollTo(0, 1);
-			}
-		</script>
-	</head>
-	<body>
-		<div id="bg">
-			<canvas></canvas>
-			<canvas></canvas>
-			<canvas></canvas>
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+</head>
+<body>
+
+<div id="bg">
+	<canvas></canvas>
+	<canvas></canvas>
+	<canvas></canvas>
+</div>
+<div class="sub-main-w3 container">
+	<div th:if="${param.error}">
+		<h2 th:text="帐号或密码错误" class="text-danger text-center"></h2>
+	</div>
+	<form th:action="@{/myLogin}" th:method="post">
+		<h2>请登陆</h2>
+		<div class="form-style-agile">
+			<label>用户名</label> <input placeholder="输入用户名" name="username" id="username" type="text" required="">
 		</div>
-		<div class="sub-main-w3 container">
-			<div th:if="${param.error}">
-				<h2 th:text="帐号或密码错误" class="text-danger text-center"></h2>
-			</div>
-			<form th:action="@{/myLogin}" th:method="post">
-				<h2>请登陆</h2>
-				<div class="form-style-agile">
-					<label>用户名</label> <input placeholder="输入用户名" name="username" id="username" type="text" required="">
-				</div>
-				<div class="form-style-agile">
-					<label>登陆密码</label> <input placeholder="请输入密码" name="password" id="password" type="password" required="">
-				</div>
-				<div class="wthree-text">
-					<ul>
-						<li>
-							<label class="anim"><input type="checkbox" class="checkbox"> <span>记住我</span></label>
-						</li>
-						<li>
-							<a href="#">忘记密码</a>
-						</li>
-					</ul>
-				</div>
-				<input type="submit" value="登陆">
-			</form>
+		<div class="form-style-agile">
+			<label>登陆密码</label> <input placeholder="请输入密码" name="password" id="password" type="password" required="">
 		</div>
-		<script th:src="@{/static/js/canva_moving_effect.js}" type="text/javascript"></script>
+		<div class="wthree-text">
+			<ul>
+				<li>
+					<label class="anim"><input type="checkbox" class="checkbox"> <span>记住我</span></label>
+				</li>
+				<li>
+					<a href="#">忘记密码</a>
+				</li>
+			</ul>
+		</div>
+		<input type="submit" value="登陆">
+	</form>
+</div>
+<script th:src="@{/static/js/canva_moving_effect.js}" type="text/javascript"></script>
 </body>
 </html>
