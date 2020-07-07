@@ -14,10 +14,21 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     }
     @Override
     protected void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("guest/index");
-        registry.addViewController("/error").setViewName("guest/error");
-        registry.addViewController("/toLogin").setViewName("guest/login");
-        registry.addViewController("/admin/home").setViewName("admin/home");
-        super.addViewControllers(registry);
+        registry.addViewController("/").setViewName("/guest/index");
+        registry.addViewController("/error").setViewName("/guest/error");
+        registry.addViewController("/toLogin").setViewName("/guest/login");
+        registry.addViewController("/guest/about").setViewName("/guest/about");
+        registry.addViewController("/guest/contact").setViewName("/guest/contact");
+        //registry.addViewController("/user/toPublishArticle").setViewName("/article/publishArticle");
+        registry.addViewController("/admin/toAuditArticle").setViewName("/article/auditArticle");
+        registry.addViewController("/user/toModifyArticle").setViewName("/article/modifyArticle");
+        registry.addViewController("/user/toDelArticle").setViewName("/article/delArticle");
+        registry.addViewController("/admin/toAuditComment").setViewName("/comment/auditComment");
+        registry.addViewController("//user/toDelComment").setViewName("/comment/delComment");
+        registry.addViewController("/admin/readCounts").setViewName("/statistic/readCounts");
+        registry.addViewController("/admin/replyCounts").setViewName("/statistic/replyCounts");
+        registry.addViewController("/admin/resetPass").setViewName("/admin/resetPass");
+        registry.addViewController("/user/modifyPass").setViewName("/admin/modifyPass");
+        registry.addViewController("/admin/userManage").setViewName("/admin/userManage");
     }
 }
