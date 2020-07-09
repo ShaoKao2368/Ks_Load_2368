@@ -7,6 +7,18 @@
         $().ready(function(){
             CKEDITOR.replace( 'content');
         });
+        //表单合法性校验
+        function checkForm(){
+            var title=$("#title").val();
+            var type=$("#typeid").val();
+            var img=$("#imgFile").val();
+          //  var content=$("#content").val();
+            var content=CKEDITOR.instances.content.getData();
+            if(title==""||type==""||img==""||content==""){
+                alert("请检查所有必填字段时否已经填写");
+                return false;
+            }
+        }
     </script>
     <style>
         .star{color:red;}
@@ -21,7 +33,7 @@
             <!-- 中间主窗口-->
             <div class="main_container mt-20" id="dashboard_page">
                 <div th:text="${publishMsg}" class="text-danger"></div>
-               <form th:action="@{/user/publisArticle}" method="post" role="form" enctype="multipart/form-data">
+               <form th:action="@{/user/publishArticle}" method="post" role="form" enctype="multipart/form-data" onsubmit="return checkForm()">
                    <div class="control-group">
                        <h5 class="form-control">博文标题</h5>
                        <div class="input-group input-group-lg">
@@ -42,21 +54,21 @@
                    <div class="control-group">
                        <h5 class="form-control">是否允许评论</h5>
                        <div class="input-group input-group-lg">
-                            允许<input th:type="radio" name="enableComment" value="1" checked="checked">
-                            禁止<input th:type="radio" name="enableComment" value="0">
+                            允许<input th:type="radio" name="enableComment" value="1" checked="checked"/>
+                            禁止<input th:type="radio" name="enableComment" value="-1">
                            <span class="input-group-addon"><i class="star">*</i></span>
                        </div>
                    </div>
                    <div class="control-group">
                        <h5 class="form-control">博文图片</h5>
                        <div class="input-group input-group-lg">
-                           <input th:type="file" name="imgFile" id="imgFile">
+                           <input th:type="file" name="imgFile" id="imgFile"/>
                            <span class="input-group-addon"><i class="star">*</i></span>
                        </div>
                    </div>
                    <div class="form-group-lg">
                        <h5 class="form-control">博文内容(<i class="star">*</i>)</h5>
-                       <textarea name="content" id="content"/></textarea>
+                       <textarea name="content" id="content" /></textarea>
                    </div>
                    <div class="form-group-lg">
                        <input class="btn btn-primary" th:type="submit"  th:value="发布">

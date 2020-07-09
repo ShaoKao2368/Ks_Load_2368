@@ -26,8 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
         http.formLogin()
            .loginPage("/toLogin")
-                .usernameParameter("username")
-                .passwordParameter("password")
+                .usernameParameter("username")  //admin
+                .passwordParameter("password")      //123456
                 .loginProcessingUrl("/myLogin")
                 .defaultSuccessUrl("/myLogin")
           .failureUrl(("/toLogin?error"));
@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+
     }
 
     @Override

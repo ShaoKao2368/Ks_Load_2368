@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>分页</title>
+</head>
+<body>
+<div th:fragment="page">
+    <form class="form-inline" method="post" id="pageForm">
+    <div class="pagination">
+        <input type="hidden" id="currentPage" th:value="${pager.page.currentPage}"/>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        <span th:if="${pager.page.currentPage}==0" class="li-inline btn btn-secondary disabled" id="prePage">
+            <b>前一页</b>
+         </span>
+        <span th:if="${pager.page.currentPage}!=0" class="li-inline btn btn-secondary" id="prePage">
+            <b>前一页</b>
+        </span>
+        <span class="li-inline btn btn-secondary disabled">
+            第<b th:text="${pager.page.currentPage}+1"></b>页/共<b th:text="${pager.page.totalPages}"></b>页(共<b
+                th:text="${pager.page.recordsNum}"></b>条记录)
+         </span>
+        <span th:if="${pager.page.currentPage} == ${pager.page.lastPage}-1" class="li-inline btn btn-secondary disabled"
+              id="nextPage"  th:onclick="return false">
+            <b>后一页</b>
+        </span>
+        <span th:if="${pager.page.currentPage} != ${pager.page.lastPage}-1" class="li-inline btn btn-secondary"
+              id="nextPage">
+            <b>后一页</b>
+        </span>
+    </div>
+    </form>
+</div>
+</body>
+</html>

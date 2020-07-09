@@ -6,7 +6,9 @@
         <result property="title" column="title"></result>
         <result property="content" column="content"></result>
         <result property="type.id" column="id"></result>
+        <result property="type.type" column="type_type"></result><!--把类型名称一并查出来-->
         <result property="user.id" column="author_id"></result>
+        <result property="user.name" column="author_name"></result><!--把作者姓名并查出来-->
         <result property="publishTime" column="publish_time"></result>
         <result property="modifyTime" column="modify_time"></result>
         <result property="status" column="status"></result>
@@ -19,56 +21,148 @@
         a.title as title,
         a.content as content,
         t.id as type_id,
+        t.type as type_type,<!--把类型名称一并查出来-->
         a.author_id as author_id,
+        u.name as author_name,<!--把作者姓名并查出来-->
         a.publish_time as publish_time,
         a.modify_time as modify_time,
-        a.status as satus,
+        a.status as status,
         a.enable_comment as enable_comment,
         a.img as img
-        from t_article a,t_user u,t_type t where a.user_id=u.id and a.type_id=t.id
+        from t_article a,t_user u,t_type t where a.author_id=u.id and a.type_id=t.id order by a.publish_time desc
     </select>
+    <!--发表博文-->
     <insert id="publishArticle" parameterType="Article" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into t_article(title,content,type_id,author_id,publish_time,modify_time,status,enable_comment,img) value(#{title},#{content},#{type.id},#{user.id},#{publishTime},#{modifyTime},#{status},#{enableComment},#{img})
     </insert>
     <select id="findArticle" resultMap="articleMap" parameterType="Article">
         select
-                a.id as id,
-                a.title as title,
-                a.content as content,
-                t.id as type_id,
-                a.author_id as user_id,
-                a.publish_time as publish_time,
-                a.modify_time as modify_time,
-                a.status as satus,
-                a.enable_comment as enable_comment,
-                a.img as img
-                from t_article a,t_user u,t_type t where a.author_id=u.id and a.type_id=t.id
-            <if test="id!=null and id!=''">
-                and a.id=#{id}
-            </if>
-            <if test="title!=null and title!=''">
-                and a.title=#{title}
-            </if>
-            <if test="type!=null and type.id!=''">
-                and a.type_id=#{type.id}
-            </if>
-            <if test="user!=null and user.id!=''">
-                and a.author_id=#{user.id}
-            </if>
-            <if test="publishTime!=null">
-                and a.publish_time=#{publishTime}
-            </if>
-            <if test="modifyTime!=null">
-                and a.modify_time=#{modifyTime}
-            </if>
-            <if test="status!=null and status!=''">
-                and a.status=#{status}
-            </if>
-            <if test="enableComment!=null and enableComment!=''">
-                and a.enable_comment=#{enableComment}
-            </if>
-            <if test="img!=null and img!=''">
-                and a.img=#{img}
-            </if>
+        a.id as id,
+        a.title as title,
+        a.content as content,
+        t.id as type_id,
+        t.type as type_type,<!--把类型名称一并查出来-->
+        a.author_id as author_id,
+        u.name as author_name,<!--把作者姓名并查出来-->
+        a.publish_time as publish_time,
+        a.modify_time as modify_time,
+        a.status as status,
+        a.enable_comment as enable_comment,
+        a.img as img
+        from t_article a,t_user u,t_type t where a.author_id=u.id and a.type_id=t.id
+        <if test="id!=null and id!=''">
+            and a.id=#{id}
+        </if>
+        <if test="title!=null and title!=''">
+            and a.title=#{title}
+        </if>
+        <if test="content!=null and content!=''">
+            and a.content=#{content}
+        </if>
+        <if test="type!=null and type.id!=''">
+            and a.type_id=#{type.id}
+        </if>
+        <if test="user!=null and user.id!=''">
+            and a.author_id=#{user.id}
+        </if>
+        <if test="publishTime!=null">
+            and a.publish_time=#{publishTime}
+        </if>
+        <if test="modifyTime!=null">
+            and a.modify_time=#{modifyTime}
+        </if>
+        <if test="status!=null and status!=''">
+            and a.status=#{status}
+        </if>
+        <if test="enableComment!=null and enableComment!=''">
+            and a.enable_comment=#{enableComment}
+        </if>
+        <if test="img!=null and img!=''">
+            and a.img=#{img}
+        </if>
+        order by a.publish_time desc
+    </select>
+    <select id="findArticlePage" resultMap="articleMap" >
+        select
+        a.id as id,
+        a.title as title,
+        a.content as content,
+        t.id as type_id,
+        t.type as type_type,<!--把类型名称一并查出来-->
+        a.author_id as author_id,
+        u.name as author_name,<!--把作者姓名并查出来-->
+        a.publish_time as publish_time,
+        a.modify_time as modify_time,
+        a.status as status,
+        a.enable_comment as enable_comment,
+        a.img as img
+        from t_article a,t_user u,t_type t where a.author_id=u.id and a.type_id=t.id
+        <if test="article.id!=null and article.id!=''">
+            and a.id=#{article.id}
+        </if>
+        <if test="article.title!=null and article.title!=''">
+            and a.title=#{article.title}
+        </if>
+        <if test="article.content!=null and article.content!=''">
+            and a.content=#{article.content}
+        </if>
+        <if test="article.type!=null and article.type.id!=''">
+            and a.type_id=#{article.type.id}
+        </if>
+        <if test="article.user!=null and article.user.id!=''">
+            and a.author_id=#{article.user.id}
+        </if>
+        <if test="article.publishTime!=null">
+            and a.publish_time=#{article.publishTime}
+        </if>
+        <if test="article.modifyTime!=null">
+            and a.modify_time=#{article.modifyTime}
+        </if>
+        <if test="article.status!=null and article.status!=''">
+            and a.status=#{article.status}
+        </if>
+        <if test="article.enableComment!=null and article.enableComment!=''">
+            and a.enable_comment=#{article.enableComment}
+        </if>
+        <if test="article.img!=null and article.img!=''">
+            and a.img=#{article.img}
+        </if>
+        order by a.publish_time desc
+        limit #{first},#{last}
+    </select>
+    <!--更新博文-->
+    <update id="modifyArticle" parameterType="Article">
+        update t_article set id=#{id}
+        <if test="content!=null and content !=''">
+            ,content=#{content}
+        </if>
+        <if test="type!=null and type.id !=null">
+            ,type_id=#{type.id}
+        </if>
+        <if test="enableComment!=null and enableComment !=''">
+            ,enable_comment=#{enableComment}
+        </if>
+        <if test="img!=null and img !=''">
+            ,img=#{img}
+        </if>
+        where
+        id=#{id}
+    </update>
+   <!--通过文章id进行查询-->
+    <select id="findArticleById" parameterType="Integer" resultMap="articleMap">
+        select
+        a.id as id,
+        a.title as title,
+        a.content as content,
+        t.id as type_id,
+        t.type as type_type,<!--把类型名称一并查出来-->
+        a.author_id as author_id,
+        u.name as author_name,<!--把作者姓名并查出来-->
+        a.publish_time as publish_time,
+        a.modify_time as modify_time,
+        a.status as status,
+        a.enable_comment as enable_comment,
+        a.img as img
+        from t_article a,t_user u,t_type t where  a.author_id=u.id and a.type_id=t.id and a.id=#{id}
     </select>
 </mapper>

@@ -11,16 +11,87 @@
         <div th:include="admin/leftmenu :: leftmenu"></div>
         <!-- 中间主窗口-->
         <div class="main_container mt-20" id="dashboard_page">
-            <div class="row-fluid">
-                <div class="overview_boxes">
-                    <div class="box_row clearfix">
-                        修改文章
+            <div class="main_container mt-20" id="dashboard_page">
+                <div th:text="${publishMsg}" class="text-danger"></div>
+                <form th:action="@{/user/modifyArticle}" method="post" role="form" enctype="multipart/form-data"
+                      onsubmit="return checkForm()">
+                    <input type="hidden" name="id" th:value="${article.id}">
+                    <input type="hidden" name="publishTime" th:value="${article.publishTime}">
+                    <input type="hidden" name="status" th:value="${article.status}">
+                    <div class="control-group">
+                        <h5>博文标题</h5>
+                        <p th:text="${article.title}"></p>
+                         <input th:type="hidden" name="title" id="title" th:value="${article.title}"/>
                     </div>
+                    <div class="control-group">
+                        <h5 class="form-control">博文类型</h5>
+                        <select name="typeid" id="typeid" class="form-control">
+                            <option value="">请选择一种类型</option>
+                            <option th:each="type:${typeList}" th:selected="${article.type.type} eq ${type.type}"
+                                    th:value="${type.id}" th:text="${type.type}"></option>
+                        </select>
+                        <span class="input-group-addon"><i class="star">*</i></span>
+                    </div>
+                    <div class="control-group">
+                        <h5 class="form-control">是否允许评论</h5>
+                        <div class="input-group input-group-lg">
+                            允许<input th:type="radio" name="enableComment" value="1"  th:attr="checked=${article.enableComment} == 1?true:false"/>
+                            禁止<input th:type="radio" name="enableComment" value="-1"  th:attr="checked=${article.enableComment} == -1?true:false"/>
+                            <span class="input-group-addon"><i class="star">*</i></span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <h5 class="form-control">博文图片</h5>
+                        <!--#myModal为指向的模态框，可用超链接或按钮触发-->
+                        <a href="#myModal" data-toggle="modal" th:title="点击看大图" >
+                            <img th:src="${article.img}" th:alt="没有图片" style="width:200px;height:120px"/>
+                        </a>
+                        <div class="input-group input-group-lg">
+                            <input th:type="file" name="imgFile" id="imgFile"/>
+                        </div>
+                    </div>
+                    <div class="form-group-lg">
+                        <h5 class="form-control">博文内容(<i class="star">*</i>)</h5>
+                        <textarea name="content" id="content" th:text="${article.content}"/></textarea>
+                    </div>
+                    <div class="form-group-lg">
+                        <input class="btn btn-primary" th:type="submit" th:value="修改">
+                        <input class="btn btn-primary" th:type="reset" th:value="重置">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框（Modal） 用于显示图片-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <img th:src="${article.img}" th:alt="没有图片" />
                 </div>
             </div>
         </div>
-        <div th:include="admin/middle :: middle" id="backmiddle"></div>
     </div>
 </div>
+</div>
+<script>
+    $().ready(function () {
+        //富文本编辑器
+        CKEDITOR.replace('content');
+    });
+    //表单合法性校验
+    function checkForm() {
+        var type = $("#typeid").val();
+        //  var content=$("#content").val();
+        var content = CKEDITOR.instances.content.getData();
+        if ( type == "" || content == "") {
+            alert("请检查所有必填字段时否已经填写");
+            return false;
+        }
+    }
+</script>
 </body>
 </html>
