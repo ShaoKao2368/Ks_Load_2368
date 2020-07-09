@@ -28,11 +28,16 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User findByLoginName(String loginName){
         Object obj = redisTemplate.opsForValue().get(loginName);
-        if (obj != null) {
+        System.out.println("使用FindByLoginName");
+        if (obj == null) {
+            System.out.println("The Obj is not successful from findByLoginName!");
             return (User)obj;
+
         } else {
+            System.out.println("The Obj is successful from findByLoginName!");
             User user = iUserMapper.findByLoginName(loginName);
             if (user != null) {
+                System.out.println("User is :" + user);
                 redisTemplate.opsForValue().set(user.getLoginName(),user);
                 return user;
             } else {
@@ -44,6 +49,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<User> findAllUser(){
         Object obj = redisTemplate.opsForValue().get("allUser");
+        System.out.println("使用FindAllUser");
         if (obj != null) {
             return (List<User>) obj;
         } else {
@@ -57,6 +63,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public String delUser(User user){
+        System.out.println("delUser");
         Integer num  = iUserMapper.delUser(user);
         if (num != 0) {
 
@@ -81,6 +88,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public String modifyUser(User user){
+        System.out.println("modifyUser");
         Integer num = iUserMapper.modifyUser(user);
         if (num != 0) {
             Object obj = redisTemplate.opsForValue().get("allUser");
@@ -112,6 +120,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<User> findUser(User user){
+        System.out.println("findUser");
         Object obj = redisTemplate.opsForValue().get(user.getLoginName() + "_list");
         if (obj != null) {
             return (List<User>) obj;
@@ -126,6 +135,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public String addUser(User user){
+        System.out.println("addUser");
         User oldUser = iUserMapper.findByLoginName(user.getLoginName());
         if (oldUser != null) {
             return "已经存在同名用户，不能添加！";

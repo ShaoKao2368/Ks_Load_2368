@@ -24,18 +24,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
-        http.formLogin()
-           .loginPage("/toLogin")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .loginProcessingUrl("/myLogin")
-                .defaultSuccessUrl("/myLogin")
-          .failureUrl(("/toLogin?error"));
+            http.formLogin()
+               .loginPage("/toLogin")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .loginProcessingUrl("/myLogin")
+                    .defaultSuccessUrl("/myLogin",true)
+                    .failureUrl("/toLogin?error");
+                http.logout().logoutSuccessUrl("/");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+//        auth.inMemoryAuthentication()
+//                .passwordEncoder(new BCryptPasswordEncoder())
+//                .withUser("admin")
+//                .password(new BCryptPasswordEncoder().encode("123"))
+//                .roles("ADMIN");
     }
 
     @Override

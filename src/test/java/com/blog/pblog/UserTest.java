@@ -42,7 +42,7 @@ public class UserTest {
         }
     }
 
-    //测试查找所有用户  BUG解决，在全局配置文件`  测试OK
+    //测试查找所有用户  BUG解决   全局配置文件 测试OK
     @Test
     void testFindAllUser(){
         List<User> list = iUserService.findAllUser();

@@ -15,6 +15,6 @@ lwy
 @Mapper
 @Repository
 public interface IRoleMapper {
-    @Select("select r.* from t_role r,t_user u,t_user_role m where m.role_id=r.id=r.id and m.user_id=u.id and u.id=#{id}")
+    @Select("select r.* from t_role r,t_user u,t_user_role m where (m.role_id=r.id) and (m.user_id=u.id) and (u.id=#{id})")
     public List<Role> findRoleByLoginUser(User user);//根据用户名查询角色
 }

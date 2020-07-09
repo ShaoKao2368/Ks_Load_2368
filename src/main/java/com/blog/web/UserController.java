@@ -25,6 +25,7 @@ public class UserController {
             list.add(grantedAuthority.getAuthority());
             System.out.println(grantedAuthority.getAuthority());
         }
+        System.out.println("List数据：" + list);
         if (list!=null && list.contains("ROLE_ADMIN")){
             return "/admin/home";
         }else{
