@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- zql
+    2020.7.9
+    -->
+<mapper namespace="com.blog.dao.ICommentMapper">
+    <resultMap id="commentMap" type="Comment">
+        <id property="id" column="id"></id>
+        <result property="article.id" column="article_id"></result>
+        <result property="article.title" column="article_title"></result>
+        <result property="commentTime" column="comment_time"></result>
+        <result property="ip" column="ip"></result>
+        <result property="status" column="status"></result>
+        <result property="user.id" column="user_id"></result>
+        <result property="user.name" column="user_name"></result>
+    </resultMap>
+<!--    根据博文id为条件进行查询-->
+    <select id="findCommentByArticleId" resultMap="commentMap" parameterType="Integer">
+        select
+            c.id as id,
+            c.article_id as article_id,
+            a.title as article_title,
+            c.content as content,
+            c.comment_time as comment_time,
+            c.ip as ip,
+            c.status as status,
+            c.person_id as user_id,
+            u.name as user_name
+        from t_comment c,t_article a,t_user u
+        where c.article_id=a.id and c.person_id=u.id and c.status='1' and c.article_id=#{articleId}
+
+    </select>
+<!--    根据评论id为条件进行查询-->
+    <select id="findCommentByCommentId" resultMap="commentMap" parameterType="Integer">
+        select
+            c.id as id,
+            c.article_id as article_ud,
+            a.title as article_title,
+            c.content as content,
+            c.comment_time as comment_time,
+            c.ip as ip,
+            c.status as status,
+            c.person_id as user_id,
+            u.name as user_name
+            from t_comment c,t_article a,t_user u
+        where c.article_id=a.id and c.person_id=u.id and c.id=#{commentId}
+    </select>
+<!--    添加评论-->
+    <insert id="addComment" parameterType="Comment">
+        insert  into t_comment(article_id,content,comment_time,ip,status,person_id) values (#{article.id},#{content},#{commentTime},#{ip},#{status}.#{user.id})
+    </insert>
+    <select id="findAllCommentByArticleId" resultMap="commentMap" parameterType="Integer">
+         select
+            c.id as id,
+            c.article_id as article_ud,
+            a.title as article_title,
+            c.content as content,
+            c.comment_time as comment_time,
+            c.ip as ip,
+            c.status as status,
+            c.person_id as user_id,
+            u.name as user_name
+            from t_comment c,t_article a,t_user u
+            where c.article_id=a.id and c.person_id=u.id and c.article_id=#{articleId}
+    </select>
+    <select id="findArticlePage" resultMap="commentMap">
+         select
+            c.id as id,
+            c.article_id as article_ud,
+            a.title as article_title,
+            c.content as content,
+            c.comment_time as comment_time,
+            c.ip as ip,
+            c.status as status,
+            c.person_id as user_id,
+            u.name as user_name
+            from t_comment c,t_article a,t_user u
+            where c.article_id=a.id and c.person_id=u.id order by c.comment_time desc ,c.status limit #{begin },#{counts}
+    </select>
+
+</mapper>

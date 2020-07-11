@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:include="admin/header :: header"></head>
+<body>
+<div id="wrap">
+    <!--导航栏-->
+    <div th:include="admin/topnav :: topnav"></div>
+    <div class="container-fluid">
+        <!-- 左侧菜单 -->
+        <div th:include="admin/leftmenu :: leftmenu"></div>
+        <!-- 中间主窗口-->
+        <div class="main_container mt-20" id="dashboard_page">
+            <div class="row-fluid">
+                <div class="overview_boxes">
+                    <div class="box_row clearfix">
+                        <table class="table table-responsive  table-striped table-hover">
+                            <caption th:text="${publishMsg}" class="text-success"></caption>
+                            <caption th:text="${modifyMsg}" class="text-success"></caption>
+                            <caption th:text="${delMsg}" class="text-success"></caption>
+                            <tr>
+                                <th>序号</th>
+                                <th>ID</th>
+                                <th>标题</th>
+                                <th>分类</th>
+                                <th>作者</th>
+                                <th>发布时间</th>
+                                <th>修改修改时间</th>
+                                <th>状态</th>
+                                <th>是否允许评论</th>
+                                <th>操作</th>
+                            </tr>
+                            <div id="mytable">
+                                <div th:each="article:${pager.list}">
+                                    <tr>
+                                        <td th:text="${articleStat.index}+1"></td>
+                                        <td th:text="${article.id}"></td>
+                                        <td th:text="${article.title}"></td>
+                                        <td th:text="${article.type.type}"></td>
+                                        <td th:text="${article.user.name}"></td>
+                                        <td th:text="${#dates.format(article.publishTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td th:text="${#dates.format(article.modifyTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                        <td>
+                                            <div th:if="${article.status} == 0 ">未审核</div>
+                                            <div th:if="${article.status} == 1 " class="text-success">审核通过</div>
+                                            <div th:if="${article.status} == -1 " class="text-error">审核拒绝</div>
+                                        </td>
+                                        <td>
+                                            <div th:if="${article.enableComment} == 1 ">允许评论</div>
+                                            <div th:if="${article.enableComment} == -1 ">禁止评论</div>
+                                        </td>
+                                        <td>
+                                            <!--审核通过不能修改-->
+                                            <a th:href="@{/user/toModifyArticle(id=${article.id})}"
+                                               th:if="${article.status} != 1 ">修改</a>
+                                            <a th:href="@{/user/delArticle(id=${article.id})}">删除</a>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr style="border-top-width: 1.5px;border-top-color: green"/>
+            <div style="display:block;width:50%;clear: both;text-align: center;margin:auto;"
+                 th:include="/admin/page :: page"></div>
+        </div>
+    </div>
+</div>
+<script>
+    //处理翻页
+    //发送post请求，必须携带"[[${_csrf.parameterName}]]": "[[${_csrf.token}]]"，否则只能发送get请求
+    $().ready(function () {
+        var curNum = $("#currentPage").val();
+        $("#prePage").click(function () {
+            //防误点击
+            if ($(this).attr("class").indexOf("disabled") != -1) {
+                return false;
+            }
+            $("#pageForm").attr("action", "/user/listArticle?requestPage=" + (--curNum)).submit();
+        });
+        $("#nextPage").click(function () {
+            //防误点击
+            if ($(this).attr("class").indexOf("disabled") != -1) {
+                return false;
+            }
+            $("#pageForm").attr("action", "/user/listArticle?requestPage=" + (++curNum)).submit();
+            /*
+            $.ajax({
+                url:"/user/ajax/listArticle",
+                async: false,
+                dataType:"json",
+                data:{
+                    "requestPage":$("#currentPage").val()+1,
+                    "[[${_csrf.parameterName}]]": "[[${_csrf.token}]]"
+                },
+                type:"POST",
+                success:function(data){
+                    if(data!=null){console.log(
+                        data.page,data.list);
+                        console.log(data.list);
+                        //更新页面的数据
+                        var content="";
+                        for(var i=0;i<data.list.length;i++){
+                            content+="<tr>";
+                            content+="<td>"+(i+1)+"</td>";//序号
+                            content+="<td>"+data.list[i].id+"</td>";//ID
+                            content+="<td>"+data.list[i].title+"</td>";//标题
+                            content+="<td>"+data.list[i].type.type+"</td>";//分类
+                            content+="<td>"+data.list[i].user.name+"</td>";//作者
+                            content+="<td>"+data.list[i].publishDate+"</td>";//发布日期
+                            content+="<td>"+data.list[i].modifyDate+"</td>";//修改日期
+                            content+="</tr>";
+                        }
+                        console.log(content);
+                        $("#mytable").html("");
+                        $("#mytable").html(content);
+                    }
+                },
+                error:function(){
+                    alert("出错了");
+                }
+            });
+            */
+        });
+
+    });
+</script>
+</body>
+</html>
