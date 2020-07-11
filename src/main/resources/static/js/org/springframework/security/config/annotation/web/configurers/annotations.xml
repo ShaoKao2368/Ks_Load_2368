@@ -1,0 +1,5 @@
+<root>
+    <item name='org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer&lt;H&gt; passwordParameter(java.lang.String)'>
+        <annotation name='java.lang.Deprecated'/>
+    </item>
+</root>

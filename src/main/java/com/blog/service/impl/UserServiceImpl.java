@@ -26,10 +26,10 @@ public class UserServiceImpl implements IUserService {
     private RedisTemplate redisTemplate;    //注入redis接口做数据缓存
 
     @Override
-    public User findByLoginName(String loginName){
+    public User findByLoginName(String loginName)throws NullPointerException{
         Object obj = redisTemplate.opsForValue().get(loginName);
         System.out.println("使用FindByLoginName");
-        if (obj == null) {
+        if (obj != null) {
             System.out.println("The Obj is not successful from findByLoginName!");
             return (User)obj;
 

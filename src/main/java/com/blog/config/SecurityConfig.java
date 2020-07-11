@@ -44,9 +44,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .roles("ADMIN");
     }
 
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         super.configure(web);
         web.ignoring().antMatchers("/static/**");
     }
+
+
 }
