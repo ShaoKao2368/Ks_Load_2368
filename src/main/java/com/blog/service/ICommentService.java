@@ -32,6 +32,8 @@ public interface ICommentService {
     //分页查询
     Pager findCommentPage(Page page);//(pager包好像有问题)
 
+    List<Comment> findAllCommentByArticle(Integer articleId);
+
     //分页查询
     Pager findCommentPage(com.blog.util.Page page);
 }
