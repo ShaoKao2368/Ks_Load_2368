@@ -21,8 +21,6 @@ public interface IArticleService {
     //查找博文
     List<Article> findArticle(Article article);
 
-    //查找最新审核通过的10篇博文
-    List<Article> findNewTop10();
 
     //分页面查询ArticleServiceImpl
     Pager<Article> findArticlePage(Article article, Page page);
@@ -36,4 +34,5 @@ public interface IArticleService {
     //查看博文
     Article findArticleById(Integer id);
 
+    List<Article> findNewTop10();
 }

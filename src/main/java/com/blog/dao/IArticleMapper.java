@@ -21,6 +21,10 @@ public interface IArticleMapper {
     public List<Article> findAllArticles();
     //查找博文
     public List<Article> findArticle(Article article);
+
+    //查找最新审核通过的10篇博文
+    List<Article> findNewTop10();
+    
     //查记录总数
     @Select("select count(*) from t_article")
     public Integer countArticle();

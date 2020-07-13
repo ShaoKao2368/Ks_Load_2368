@@ -51,6 +51,7 @@
                                         </td>
                                         <td>
                                             <!--审核通过不能修改-->
+                                            <a class="btn btn-primary" th:href="@{/guest/showArticle(id=${article.id})}">查看</a>
                                             <a th:href="@{/user/toModifyArticle(id=${article.id})}"
                                                th:if="${article.status} != 1 ">修改</a>
                                             <a th:href="@{/user/delArticle(id=${article.id})}">删除</a>

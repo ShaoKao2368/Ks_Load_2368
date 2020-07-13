@@ -2,9 +2,11 @@ package com.blog.web;
 
 import com.blog.dao.IUserMapper;
 import com.blog.model.entity.Article;
+import com.blog.model.entity.Comment;
 import com.blog.model.entity.Type;
 import com.blog.model.entity.User;
 import com.blog.service.IArticleService;
+import com.blog.service.ICommentService;
 import com.blog.service.ITypeService;
 import com.blog.util.ImageBase64Utils;
 import com.blog.util.Page;
@@ -15,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,6 +39,9 @@ public class ArticleController {
     private IUserMapper iUserMapper;
     @Autowired
     private IArticleService iArticleService;
+    @Autowired
+    ICommentService iCommentService;
+
     @Qualifier("ITypeServiceImpl")
     @Autowired
     private ITypeService iTypeService;
@@ -109,42 +115,30 @@ public class ArticleController {
         return new ModelAndView("forward:/user/listArticle");
     }
 
-    /**
-     * 根据用户查询博文
-     * 使用了分页查询
-     *
-     * @param request
-     * @param requestPage 请求的当前页面编号
-     * @return
-     */
-    @RequestMapping("/user/listArticle")
-    public String listArticleByUser(HttpServletRequest request, Integer requestPage) {
+    @RequestMapping("/user/ajax/listArticle")
+    @ResponseBody
+    public Pager listArticleByUser(Integer requestPage,HttpServletResponse response) throws IOException{
         Article article = new Article();
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = iUserMapper.findByLoginName(userDetails.getUsername());
         article.setUser(user);
-        //List<Article> list=iArticleService.findArticle(article);//查全部
         Page page = new Page();
         if (requestPage != null) {
             page.setCurrentPage(requestPage);
         }
-        //分页查询
-        Pager pager = iArticleService.findArticlePage(article, page);
-        request.setAttribute("pager", pager);
-        return "admin/listArticle";
+        Pager<Article> pager = iArticleService.findArticlePage(article,page);
+        return pager;
     }
+
 
     /**
      * 前台使用ajax调用
-     *
-     * @param requestPage
-     * @param response
+     * @param request
+     * @param
      * @return
-     * @throws IOException
      */
-    @RequestMapping("/user/ajax/listArticle")
-    @ResponseBody //使用@ResponseBody返回的是JSON对象，前台使用Jquery的each方法进行遍历
-    public Pager listArticleByUser(Integer requestPage, HttpServletResponse response) throws IOException {
+    @RequestMapping("/user/listArticle")
+    public String listArticleByUser(HttpServletRequest request,Integer requestPage){
         Article article = new Article();
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = iUserMapper.findByLoginName(userDetails.getUsername());
@@ -154,8 +148,9 @@ public class ArticleController {
             page.setCurrentPage(requestPage);
         }
         //分页查询
-        Pager<Article> pager = iArticleService.findArticlePage(article, page);
-        return pager;
+        Pager pager = iArticleService.findArticlePage(article,page);
+        request.setAttribute("pager",pager);
+        return "admin/listArticle";
     }
 
     //跳转到修改博文页面，携带数据article
@@ -259,13 +254,44 @@ public class ArticleController {
        return "article/auditArticle";
     }
     //查看博文
-    @RolesAllowed("ROLE_ADMIN")
+    //@RolesAllowed("ROLE_ADMIN")
     @RequestMapping("/admin/showArticle")
     public String showArticle(HttpServletRequest request,Integer id){
         Article article=iArticleService.findArticleById(id);
         //处理一下图片
         article.setImg("data:image/jpg;base64," + article.getImg());
         request.setAttribute("article",article);
+        //把对应博文的评论信息一并查出来
+        List<Comment> commentList = iCommentService.findCommentByArticleId(article.getId());
+        //取出第一条评论单独处理
+        Comment comment = new Comment();
+        if (commentList != null && commentList.size() >0) {
+            commentList.get(0);
+            request.setAttribute("newComment",comment); //最新的评论
+            commentList.remove(0);
+        }
+        request.setAttribute("commentList",commentList);
+        //查出作者相关的其他博文
+        Article article1 = new Article();
+        article1.setUser(article.getUser());
+        List<Article> otherList = iArticleService.findArticle(article1);
+        //从otherList中过滤当前查出的文章
+        int index = -1;
+        if (otherList != null && otherList.size() > 0) {
+            for (int i = 0 ; i < otherList.size() ; i++) {
+                if (otherList.get(i).getId() == article.getId()) {
+                    index = i;
+                }
+                //此处都是article2
+                Article article2 = otherList.get(i);
+                article2.setImg("data:image/jpg;base64," + article2.getImg());
+                otherList.set(i,article2);
+            }
+        }
+        if (index != -1) {
+            otherList.remove(index);
+        }
+        request.setAttribute("otherList",otherList);
         return "article/show";
     }
 

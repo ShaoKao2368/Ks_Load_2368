@@ -24,27 +24,28 @@
                         <!-- large post -->
                         <article class="entry-item large-post" >
                             <div class="entry-header">
-                                <a href="#" class="entry-category">博文分类1</a>
+                                <a href="javascript:void(0)" class="entry-category" th:text="${newArticle.type.type}">博文分类1</a>
                                 <h2 class="entry-title">
-                                    <a th:href="@{/guest/detail(title_id=1111)}">博文标题</a>
+                                    <a th:href="@{/guest/showArticle(id=${newArticle.id})}" th:text="${newArticle.title}">博文标题</a>
                                 </h2>
                             </div>
                             <div class="entry-img">
-                                <a th:href="@{/guest/detail(title_id=1111)}">
-                                    <img th:src="@{/static/img/featured_post.jpg}" alt="">
+                                <a th:href="@{/guest/showArticle(id=${newArticle.id})}">
+                                    <img th:src="@{newArticle.img}" alt="无图片">
                                 </a>
                             </div>
                             <div class="entry-wrap">
                                 <div class="entry">
                                     <div class="entry-content">
-                                        <p>博文内容....</p>
+                                        <p th:utext="${#strings.abbreviate(newArticle.content,400)}">博文内容....</p>
                                         <div class="text-center">
-                                            <a th:href="@{/guest/detail(title_id=1111)}" class="read-more underline-link">更多</a>
+                                            <a th:href="@{/guest/showArticle(id=${newArticle.id})}" class="read-more underline-link">更多</a>
                                         </div>
                                     </div>
                                     <div class="entry-meta-wrap clearfix">
                                         <ul class="entry-meta">
-                                            <li class="entry-date">
+                                            <li th:text="${newArticle.user.name}">作者</li>
+                                            <li class="entry-date" th:text="${#dates.format(newArticle.publishTime,'yyyy-MM-dd HH:mm:ss')}">
                                                 2020年6月30日
                                             </li>
                                             <li class="entry-comments">
@@ -57,27 +58,28 @@
                         </article>
                         <!-- grid posts -->
                         <div class="row items-grid">
-                            <div class="col-sm-6" th:each="i: ${#numbers.sequence(1,10)}">
+                            <div class="col-sm-6" th:each="new10: ${newTop10}">
                                 <article class="entry-item">
                                     <div class="entry-img">
-                                        <a th:href="@{/guest/detail(title_id=1111)}">
-                                            <img th:src="@{/static/img/post_1.jpg}" alt="">
+                                        <a th:href="@{/guest/showArticle(id=${new10.id})}">
+                                            <img th:src="@{new10.img}" alt="无图片">
                                         </a>
                                     </div>
                                     <div class="entry-header">
-                                        <a href="#" class="entry-category">博文分类</a>
+                                        <a href="javascript:void(0)" class="entry-category" th:text="${new10.type.type}">博文分类</a>
                                         <h2 class="entry-title">
-                                            <a th:href="@{/guest/detail(title_id=1111)}">博文标题</a>
+                                            <a th:href="@{/guest/showArticle(id=${new10.id})}" th:text="${new10.title}">博文标题</a>
                                         </h2>
                                     </div>
                                     <div class="entry-wrap">
                                         <div class="entry">
                                             <div class="entry-content">
-                                                <p>博文内容</p>
+                                                <p th:utext="${#strings.abbreviate(new10.content,400)}">博文内容</p>
                                             </div>
                                             <div class="entry-meta-wrap clearfix">
                                                 <ul class="entry-meta">
-                                                    <li class="entry-date">
+                                                    <li th:text="${new10.user.name}">作者</li>
+                                                    <li class="entry-date" th:text="${#dates.format(new10.publishTime,'yyyy-MM-dd HH:mm:ss')}">
                                                         2020年6月30日
                                                     </li>
                                                     <li class="entry-comments">

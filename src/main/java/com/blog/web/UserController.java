@@ -1,9 +1,10 @@
 package com.blog.web;
 
 import com.blog.dao.IUserMapper;
+import com.blog.model.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,13 +18,16 @@ import java.util.List;
 
 @Controller
 public class UserController {
+    @Autowired
+    private IUserMapper iUserMapper;
+
     @RequestMapping("/myLogin")
     public ModelAndView myLogin(HttpServletRequest request){
         System.out.println("登陆成功");
         UserDetails userDetails= (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(userDetails.getUsername());
-
-        User user = IUserMapper.findByLoginName(userDetails.getUsername());
+        User user = iUserMapper.findByLoginName(userDetails.getUsername());
+        //User user = IUserMapper.findByLoginName(userDetails.getUsername());
         request.getSession().setAttribute("user",user);
 
         Collection collection=(Collection)userDetails.getAuthorities();

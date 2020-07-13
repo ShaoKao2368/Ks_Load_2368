@@ -165,4 +165,22 @@
         a.img as img
         from t_article a,t_user u,t_type t where  a.author_id=u.id and a.type_id=t.id and a.id=#{id}
     </select>
+
+    <!--findNewTop10 zzk-->
+    <select id="findNewTop10" resultMap="articleMap">
+        select
+        a.id as id,
+        a.title as title,
+        a.content as content,
+        t.id as type_id,
+        t.type as type_type,
+        a.author_id as author_id,
+        u.name as author_name,
+        a.publish_time as publish_time,
+        a.modify_time as modify_time
+        a.status as status,
+        a.enable_comment as enable_comment,
+        a.img as img
+        from t_article a , t_user u , t_type t where a.author_id = u.id and a.type_id = t.id order by publish_time desc limit 0,10
+    </select>
 </mapper>

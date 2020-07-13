@@ -132,6 +132,6 @@ public class IArticleServiceImpl implements IArticleService {
 
     @Override
     public List<Article> findNewTop10() {
-
+        return iArticleMapper.findNewTop10();
     }
 }
