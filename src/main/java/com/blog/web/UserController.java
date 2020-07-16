@@ -46,4 +46,14 @@ public class UserController {
             return new ModelAndView("forward:/");   //转向首页映射的路径
         }
     }
+
+    //用户个人信息，用户和管理员使用同一个后台，不分开，在页面做权限设置
+    @RequestMapping("/user/home")
+    public String backHome(HttpServletRequest request){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(userDetails.getUsername());
+        User user = iUserMapper.findByLoginName(userDetails.getUsername());
+        request.getSession().setAttribute("user",user);
+        return "/admin/home";
+    }
 }

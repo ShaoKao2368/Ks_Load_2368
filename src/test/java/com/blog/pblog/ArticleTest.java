@@ -16,7 +16,7 @@ public class ArticleTest {
     void findNewTop(){
         List<Article> list = iArticleService.findNewTop10();
         for (Article a:list) {
-            System.out.println(a.toString());
+            System.out.println("a:" + a.toString());
         }
     }
 }

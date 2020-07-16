@@ -177,7 +177,7 @@
         a.author_id as author_id,
         u.name as author_name,
         a.publish_time as publish_time,
-        a.modify_time as modify_time
+        a.modify_time as modify_time,
         a.status as status,
         a.enable_comment as enable_comment,
         a.img as img
