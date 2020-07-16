@@ -2,7 +2,12 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 >
-<head th:include="guest/front-header::front-header"></head>
+
+<!--    修改页面，完成Top10方法-->
+<!--    azc-->
+<!--    2020.7.11-->
+
+<head th:include="guest/front-header :: front-header"></head>
 <body class="relative">
 <!-- Preloader -->
 <div class="loader-mask">
@@ -31,7 +36,7 @@
                             </div>
                             <div class="entry-img">
                                 <a th:href="@{/guest/showArticle(id=${newArticle.id})}">
-                                    <img th:src="@{newArticle.img}" alt="无图片">
+                                    <img th:src="${newArticle.img}" alt="无图片">
                                 </a>
                             </div>
                             <div class="entry-wrap">
@@ -46,10 +51,7 @@
                                         <ul class="entry-meta">
                                             <li th:text="${newArticle.user.name}">作者</li>
                                             <li class="entry-date" th:text="${#dates.format(newArticle.publishTime,'yyyy-MM-dd HH:mm:ss')}">
-                                                2020年6月30日
-                                            </li>
-                                            <li class="entry-comments">
-                                                评论数(2)
+                                                2020年7月12日
                                             </li>
                                         </ul>
                                     </div>
@@ -57,55 +59,58 @@
                             </div>
                         </article>
                         <!-- grid posts -->
-                        <div class="row items-grid">
-                            <div class="col-sm-6" th:each="new10: ${newTop10}">
-                                <article class="entry-item">
-                                    <div class="entry-img">
-                                        <a th:href="@{/guest/showArticle(id=${new10.id})}">
-                                            <img th:src="@{new10.img}" alt="无图片">
-                                        </a>
-                                    </div>
-                                    <div class="entry-header">
-                                        <a href="javascript:void(0)" class="entry-category" th:text="${new10.type.type}">博文分类</a>
-                                        <h2 class="entry-title">
-                                            <a th:href="@{/guest/showArticle(id=${new10.id})}" th:text="${new10.title}">博文标题</a>
-                                        </h2>
-                                    </div>
-                                    <div class="entry-wrap">
+                        <div class="col-sm-6" th:each="new10: ${newTop10}">
+                            <article class="entry-item">
+                                <div class="entry-img">
+                                    <a th:href="@{/guest/showArticle(id=${new10.id})}">
+                                        <img th:src="${new10.img}" alt="无图片">
+                                    </a>
+                                </div>
+                                <div class="entry-header">
+                                    <a href="javascript:void(0)" class="entry-category" th:text="${new10.type.type}">博文分类</a>
+                                    <h2 class="entry-title">
+                                        <a  th:href="@{/guest/showArticle(id=${new10.id})}" th:text="${new10.title}">博文标题</a>
+                                            </h2>
+                                        </div>
+                                        <div class="entry-wrap">
                                         <div class="entry">
                                             <div class="entry-content">
                                                 <p th:utext="${#strings.abbreviate(new10.content,400)}">博文内容</p>
+<!--                                                <div class="text-center">-->
+<!--                                                    <a th:href="@{/guest/showArticle(id=${newArticle.id})}" class="read-more underline-link">更多</a>-->
+<!--                                                </div>-->
                                             </div>
                                             <div class="entry-meta-wrap clearfix">
                                                 <ul class="entry-meta">
                                                     <li th:text="${new10.user.name}">作者</li>
                                                     <li class="entry-date" th:text="${#dates.format(new10.publishTime,'yyyy-MM-dd HH:mm:ss')}">
-                                                        2020年6月30日
-                                                    </li>
-                                                    <li class="entry-comments">
-                                                        评论数(2)
+                                                        2020年7月12日
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
-                                </article>
-                            </div>
+                                </div>
+                            </article>
                         </div>
-                        <div class="row mt-20">
-                            <div class="col-md-12 text-center">
-                                <a th:href="@{/guest/findmore}" class="btn btn-md btn-stroke" id="load-more">查看更多</a>
-                            </div>
+
+
+                    <div class="row mt-20">
+                        <div class="col-md-12 text-center">
+                            <a th:href="@{/guest/findmore}" class="btn btn-md btn-stroke" id="load-more">查看更多</a>
                         </div>
                     </div>
-                    <!-- 侧边栏 -->
-                    <div th:include="guest/front-sidebar :: front-sidebar"></div>
+                </div>
+                <!-- 侧边栏 -->
+                <div th:include="guest/front-sidebar :: front-sidebar"></div>
+
                 </div>
             </div>
-        </section>
-        <!--页脚-->
-        <div th:include="guest/front-footer :: front-footer"></div>
+    </section>
     </div>
+</div>
+    <!--页脚-->
+    <div th:include="guest/front-footer :: front-footer"></div>
+</div>
 </div>
 </body>
 </html>

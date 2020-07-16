@@ -23,9 +23,7 @@ public class UserController {
 
     @RequestMapping("/myLogin")
     public ModelAndView myLogin(HttpServletRequest request){
-        System.out.println("登陆成功");
         UserDetails userDetails= (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(userDetails.getUsername());
         User user = iUserMapper.findByLoginName(userDetails.getUsername());
         //User user = IUserMapper.findByLoginName(userDetails.getUsername());
         request.getSession().setAttribute("user",user);
@@ -36,7 +34,6 @@ public class UserController {
         while (iterator.hasNext()){
             GrantedAuthority grantedAuthority= iterator.next();
             list.add(grantedAuthority.getAuthority());
-            System.out.println(grantedAuthority.getAuthority());
         }
 
         if (list!=null && list.contains("ROLE_ADMIN")){
@@ -51,7 +48,6 @@ public class UserController {
     @RequestMapping("/user/home")
     public String backHome(HttpServletRequest request){
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(userDetails.getUsername());
         User user = iUserMapper.findByLoginName(userDetails.getUsername());
         request.getSession().setAttribute("user",user);
         return "/admin/home";

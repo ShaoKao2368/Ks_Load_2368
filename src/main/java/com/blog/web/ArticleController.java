@@ -277,7 +277,6 @@ public class ArticleController {
                 list.set(i , a);                                //修改一个图片内容
             }
         }
-        System.out.println(list);
         //单独取出第一篇
         request.setAttribute("newArticle" , list.get(0));
         list.remove(0);
